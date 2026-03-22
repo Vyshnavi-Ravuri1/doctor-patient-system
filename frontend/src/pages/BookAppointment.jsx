@@ -15,7 +15,7 @@ function BookAppointment() {
             <div
                 style={{
                     width: "100%",
-                    maxWidth: "380px",
+                    maxWidth: "420px",
                     background: "#ffffff",
                     padding: "28px 24px",
                     borderRadius: "18px",

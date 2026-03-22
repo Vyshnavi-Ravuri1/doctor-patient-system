@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import API from "../services/api";
 
 function AppointmentForm() {
+    const navigate = useNavigate();
+
     const [formData, setFormData] = useState({
         patientName: "",
         phoneNumber: "",
@@ -37,7 +40,7 @@ function AppointmentForm() {
 
         try {
             const res = await API.get(`/appointments/slots/${selectedDate}`);
-            setAvailableSlots(res.data.availableSlots);
+            setAvailableSlots(res.data.availableSlots || []);
             setMessage("");
         } catch (error) {
             setAvailableSlots([]);
@@ -180,12 +183,33 @@ function AppointmentForm() {
                 Book Appointment
             </button>
 
+            <p
+                style={{
+                    marginTop: "14px",
+                    textAlign: "center",
+                    color: "#60a5fa",
+                    cursor: "pointer",
+                    fontWeight: "500",
+                }}
+            >
+                Are you a doctor?{" "}
+                <span
+                    onClick={() => navigate("/doctor-login")}
+                    style={{
+                        textDecoration: "underline",
+                        fontWeight: "600",
+                    }}
+                >
+                    Login here
+                </span>
+            </p>
+
             {message && (
                 <p
                     style={{
-                        marginTop: "14px",
+                        marginTop: "10px",
                         textAlign: "center",
-                        color: message.includes("Success") ? "green" : "#b91c1c",
+                        color: message.includes("Successfully") ? "green" : "#b91c1c",
                         fontWeight: "500",
                     }}
                 >
