@@ -188,8 +188,8 @@ const getAvailableSlots = async (req, res) => {
             { preferredTimeSlot: 1, _id: 0 }
         );
 
-        const bookedSlots = bookedAppointments.map(
-            (item) => item.preferredTimeSlot
+        const bookedSlots = bookedAppointments.map((item) =>
+            String(item.preferredTimeSlot).trim()
         );
 
         const availableSlots = allSlots.filter(
@@ -203,6 +203,7 @@ const getAvailableSlots = async (req, res) => {
             availableSlots,
         });
     } catch (error) {
+        console.log("Slot error:", error);
         res.status(500).json({
             success: false,
             message: "Error fetching slot availability",
